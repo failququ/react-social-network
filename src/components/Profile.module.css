@@ -1,0 +1,22 @@
+.content {
+    grid-area: c;
+    background-color: gray;
+}
+
+.item {
+    color: yellow;
+    border: 1px solid black;
+    width: 500px;
+    text-align: center;
+    box-shadow: 2px 2px 2px black;
+    background-color: #fff;
+    color: black;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    padding: 5px;
+    margin-left: 150px;
+}
