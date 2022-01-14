@@ -4,7 +4,7 @@ const Navbar = () => {
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
-                <a href="#s">
+                <a className={classes.active} href="#s">
                     Profile
                 </a>
             </div>

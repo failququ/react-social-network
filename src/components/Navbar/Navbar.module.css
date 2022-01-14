@@ -11,3 +11,7 @@
 .item a:hover {
     text-decoration: underline;
 }
+
+.item a.active {
+    color:tomato;
+}
