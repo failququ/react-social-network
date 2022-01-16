@@ -25,3 +25,9 @@
     flex-direction: column;
     gap: 15px
 }
+
+.btn {
+    display: block;
+    width: 90px;
+    margin-left: 35px;
+}

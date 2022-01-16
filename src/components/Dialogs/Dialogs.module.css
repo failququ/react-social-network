@@ -1,0 +1,41 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+}
+
+.dialogsItems {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    border-right: 2px solid black;
+}
+
+.dialogsItems .dialog a {
+    display: flex;
+    gap: 15px;
+    justify-content: start;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    width: 110px;
+}
+
+.dialogsItems img {
+    width: 40px;
+    height: 40px;
+}
+
+.dialogsItems .active{
+    color:tomato;
+}
+
+.messages {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+}
+
+.messages .message {
+    
+}
