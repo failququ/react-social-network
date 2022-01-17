@@ -1,0 +1,22 @@
+.dialog {
+    display: flex;
+    width: 150px;
+}
+.dialog a {
+    display: flex;
+    gap: 15px;
+    justify-content: start;
+    padding: 10px;
+    text-decoration: none;
+    color: black;
+    width: 110px;
+}
+
+.dialog img {
+    width: 40px;
+    height: 40px;
+}
+
+.dialogsItems .active{
+    color:tomato;
+}
