@@ -1,0 +1,11 @@
+.friendsBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 35px;
+}
+
+.friends {
+    display: flex;
+    font-size: 15px;
+}

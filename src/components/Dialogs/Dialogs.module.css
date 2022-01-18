@@ -8,11 +8,25 @@
     flex-direction: column;
     gap: 15px;
     border-right: 2px solid black;
+    padding: 10px; 
 }
 
 .messages {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    padding-left: 10px;
+    padding: 10px;
+}
+
+.postingBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    width: 190px;
+}
+
+.postingBlock button {
+    width: 105px;
+    height: 25px;
+    align-self: center;
 }

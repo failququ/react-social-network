@@ -1,3 +1,4 @@
+import React from 'react';
 import DialogItem from './DialogItem/DialogItem';
 import classes from './Dialogs.module.css';
 import Message from './Message/Message';
@@ -6,28 +7,20 @@ import Message from './Message/Message';
 const Dialogs = (props) => {
 
     // DATA
-    let dialogs = [
-        { id: 1, name: 'Sawa' },
-        { id: 2, name: 'Vasya' },
-        { id: 3, name: 'Petya' },
-        { id: 4, name: 'Alyosha' },
-        { id: 5, name: 'Vitya' },
-    ]
-
-    let messages = [
-        { id: 1, messageText: 'wassup' },
-        { id: 2, messageText: 'wasgud' },
-        { id: 3, messageText: 'whats crackin' },
-        { id: 4, messageText: 'whats crackin' },
-    ]
 
     // DATA MAPPING
-    let dialogsItems = dialogs
+    let dialogsItems = props.state.dialogs
         .map(dialog => <DialogItem name={dialog.name} id={dialog.id} />);
 
-    let messagesItems = messages
+    let messagesItems = props.state.messages
         .map(message => <Message messageText={message.messageText} />)
 
+    let newMessage = React.useRef(null);
+
+    let sendMessage = () => {
+        let text = newMessage.current.value;
+        alert(text);
+    }
 
     return (
         <div className={classes.dialogs}>
@@ -38,6 +31,10 @@ const Dialogs = (props) => {
             <div className={classes.messages}>
                 <h4>MESSAGES</h4>
                 {messagesItems}
+                <div className={classes.postingBlock}>
+                    <textarea ref={newMessage}></textarea>
+                    <button onClick={sendMessage} className={classes.btn}>Send message</button>
+                </div>
             </div>
         </div>
     )
