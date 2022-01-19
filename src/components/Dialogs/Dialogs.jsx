@@ -9,17 +9,21 @@ const Dialogs = (props) => {
     // DATA
 
     // DATA MAPPING
-    let dialogsItems = props.state.dialogs
+    let dialogsItems = props.messagesPage.dialogs
         .map(dialog => <DialogItem name={dialog.name} id={dialog.id} />);
 
-    let messagesItems = props.state.messages
+    let messagesItems = props.messagesPage.messages
         .map(message => <Message messageText={message.messageText} />)
 
     let newMessage = React.useRef(null);
 
     let sendMessage = () => {
-        let text = newMessage.current.value;
-        alert(text);
+        props.sendMessage();
+    }
+
+    let onMessageInputUpdate = (e) => {
+        let text = e.target.value;
+        props.messageTextUpdate(text);
     }
 
     return (
@@ -32,7 +36,7 @@ const Dialogs = (props) => {
                 <h4>MESSAGES</h4>
                 {messagesItems}
                 <div className={classes.postingBlock}>
-                    <textarea ref={newMessage}></textarea>
+                    <textarea ref={newMessage} value={props.messagesPage.newMessageText} onChange={onMessageInputUpdate} />
                     <button onClick={sendMessage} className={classes.btn}>Send message</button>
                 </div>
             </div>
