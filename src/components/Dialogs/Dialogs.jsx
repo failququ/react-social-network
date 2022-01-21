@@ -1,4 +1,5 @@
 import React from 'react';
+import { messageTextUpdateActionCreator, sendMessageActionCreator } from '../../redux/state';
 import DialogItem from './DialogItem/DialogItem';
 import classes from './Dialogs.module.css';
 import Message from './Message/Message';
@@ -10,20 +11,20 @@ const Dialogs = (props) => {
 
     // DATA MAPPING
     let dialogsItems = props.messagesPage.dialogs
-        .map(dialog => <DialogItem name={dialog.name} id={dialog.id} />);
+        .map((dialog, index) => <DialogItem key={index} name={dialog.name} id={dialog.id} />);
 
     let messagesItems = props.messagesPage.messages
-        .map(message => <Message messageText={message.messageText} />)
+        .map((message, index) => <Message key={index} messageText={message.messageText} />)
 
     let newMessage = React.useRef(null);
 
     let sendMessage = () => {
-        props.sendMessage();
+        props.dispatch(sendMessageActionCreator());
     }
 
     let onMessageInputUpdate = (e) => {
         let text = e.target.value;
-        props.messageTextUpdate(text);
+        props.dispatch(messageTextUpdateActionCreator(text));
     }
 
     return (
