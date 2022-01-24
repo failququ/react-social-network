@@ -3,7 +3,6 @@ import Friends from '../Friends/Friends';
 import classes from './Navbar.module.css';
 
 const Navbar = (props) => {
-
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
@@ -33,7 +32,7 @@ const Navbar = (props) => {
             </div>
 
             <div className={classes.item}>
-                <Friends friends={props.state.friends} />
+                <Friends friends={props.friends} />
             </div>
         </nav>
     )
