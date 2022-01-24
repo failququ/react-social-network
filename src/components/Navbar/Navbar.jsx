@@ -3,6 +3,7 @@ import Friends from '../Friends/Friends';
 import classes from './Navbar.module.css';
 
 const Navbar = (props) => {
+
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
