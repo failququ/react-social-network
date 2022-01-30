@@ -1,0 +1,19 @@
+.userAvatar{
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+}
+
+.selectedPage{
+    font-weight: bold;
+}
+
+.pages{
+    margin-left: 5px;
+    display: flex;
+    gap: 2px;
+}
+
+.pages span{
+    cursor: pointer;
+}
