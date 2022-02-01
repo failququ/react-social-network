@@ -21,7 +21,7 @@ const MyPosts = (props) => {
     return (
         <div className={classes.content}>
             <div>
-                <h4>My posts</h4>
+                <h4>Posts:</h4>
                 <div>
                     <textarea value={props.newPostText} onChange={onPostInputUpdate} />
                     <button onClick={onAddPost} className={classes.btn}>Add post</button>
