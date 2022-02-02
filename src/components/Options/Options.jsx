@@ -1,4 +1,3 @@
-import classes from './Options.module.css';
 
 const Options = (props) => {
     return (

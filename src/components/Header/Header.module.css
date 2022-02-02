@@ -1,9 +1,26 @@
 .header{
     grid-area: h;
     background-color: rgb(101, 101, 224);
+    position:relative;
 }
 
 .header img {
     width: 50px;
     height: 50px;
+}
+
+.loginBlock {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+}
+
+.loginBlock a {
+    color: #000;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.loginBlock a:hover {
+    text-decoration: underline;
 }
