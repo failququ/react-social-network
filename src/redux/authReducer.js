@@ -1,3 +1,5 @@
+import { authAPI } from "../api/api";
+
 const SET_USER_DATA = 'SET-USER-DATA'
 
 let initialState = {
@@ -11,7 +13,6 @@ const authReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_USER_DATA: {
-            // debugger;
             return {
                 ...state, 
                 ...action.data,
@@ -25,6 +26,7 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
+//ACTION CREATORS
 export const setUserDataActionCreator = (id, login, email ) => {
     return{
         type: SET_USER_DATA,
@@ -32,6 +34,19 @@ export const setUserDataActionCreator = (id, login, email ) => {
     }
 }
 
+// THUNK CREATORS
+
+export const setUserDataThunkCreator = () => {
+
+    return (dispatch) => {
+        authAPI.getUserData().then(data => {
+            if (data.resultCode === 0) {
+                let { id, login, email } = data.data;
+                dispatch(setUserDataActionCreator(id, login, email))
+            }
+        })
+    }
+}
 
 
 export default authReducer;

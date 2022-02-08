@@ -1,29 +1,18 @@
 import { connect } from "react-redux";
-import { followActionCreator, setCurrentPageActionCreator, setUsersActionCreator, setUsersTotalCountActionCreator, toggleIsLoadingActionCreator, unfollowActionCreator } from "../../redux/usersReducer";
+import { followThunkCreator, getUsersThunkCreator, unfollowThunkCreator } from "../../redux/usersReducer";
 import React from "react";
 import Users from "./Users";
 import Preloader from "../commons/Preloader/Preloader";
-import { usersAPI } from "../../api/api";
 
 
 class UsersContainer extends React.Component {
 
     componentDidMount() {
-        this.props.toggleIsLoading(true)
-        usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-            this.props.toggleIsLoading(false)
-            this.props.setUsers(data.items);
-            this.props.setUsersTotalCount(data.totalCount);
-        })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChange = (pageNumber) => {
-        this.props.setCurrentPage(pageNumber);
-        this.props.toggleIsLoading(true)
-        usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-            this.props.toggleIsLoading(false)
-            this.props.setUsers(data.items)
-        })
+        this.props.getUsers(pageNumber, this.props.pageSize)
     }
 
     render() {
@@ -58,27 +47,15 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = (dispatch) => {
     return {
         follow: (userId) => {
-            dispatch(followActionCreator(userId))
+            dispatch(followThunkCreator(userId))
         },
 
         unfollow: (userId) => {
-            dispatch(unfollowActionCreator(userId))
+            dispatch(unfollowThunkCreator(userId))
         },
 
-        setUsers: (users) => {
-            dispatch(setUsersActionCreator(users))
-        },
-
-        setCurrentPage: (pageNumber) => {
-            dispatch(setCurrentPageActionCreator(pageNumber))
-        },
-
-        setUsersTotalCount: (totalCount) => {
-            dispatch(setUsersTotalCountActionCreator(totalCount))
-        },
-
-        toggleIsLoading: (isLoading) => {
-            dispatch(toggleIsLoadingActionCreator(isLoading))
+        getUsers: (currentPage, pageSize) => {
+            dispatch(getUsersThunkCreator(currentPage, pageSize))
         }
     }
 }

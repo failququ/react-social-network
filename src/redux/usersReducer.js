@@ -1,3 +1,5 @@
+import { followUnfollowAPI, usersAPI } from "../api/api";
+
 const SET_USERS = 'SET-USERS';
 const UNFOLLOW = 'UNFOLLOW';
 const FOLLOW = 'FOLLOW';
@@ -57,6 +59,7 @@ const usersReducer = (state = initialState, action) => {
 
 }
 
+//ACTION CREATORS
 
 export const setUsersActionCreator = (users) => {
     return{
@@ -97,6 +100,42 @@ export const toggleIsLoadingActionCreator = (isLoading) => {
     return {
         type: TOGGLE_IS_LOADING,
         isLoading
+    }
+}
+
+//THUNK CREATORS
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+
+    return (dispatch) => {
+        dispatch(setCurrentPageActionCreator(currentPage))
+        dispatch(toggleIsLoadingActionCreator(true))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsLoadingActionCreator(false))
+            dispatch(setUsersActionCreator(data.items))
+            dispatch(setUsersTotalCountActionCreator(data.totalCount))
+        })
+    }
+}
+
+export const followThunkCreator = (userId) => {
+
+    return (dispatch) => {
+        followUnfollowAPI.follow(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followActionCreator(userId))
+            }
+        })
+    }
+}
+
+export const unfollowThunkCreator = (userId) => {
+
+    return (dispatch) => {
+        followUnfollowAPI.unfollow(userId).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollowActionCreator(userId))
+            }
+        })
     }
 }
 

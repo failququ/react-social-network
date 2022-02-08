@@ -2,8 +2,6 @@ import React from "react";
 import classes from './Users.module.css';
 import userAvatar from '../../assets/images/user.png'
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import { followUnfollowAPI } from "../../api/api";
 
 const Users = (props) => {
 
@@ -34,20 +32,8 @@ const Users = (props) => {
                     </div>
                     <div>
                         {user.followed
-                            ? <button onClick={() => {
-                                followUnfollowAPI.unfollow(user.id).then(data => {
-                                    if (data.resultCode === 0) {
-                                        props.unfollow(user.id)
-                                    }
-                                })
-                            }}>Unfollow</button>
-                            : <button onClick={() => {
-                                followUnfollowAPI.follow(user.id).then(data => {
-                                    if (data.resultCode === 0) {
-                                        props.follow(user.id)
-                                    }
-                                })
-                            }}>Follow</button>}
+                            ? <button onClick={() => { props.unfollow(user.id) }}>Unfollow</button>
+                            : <button onClick={() => { props.follow(user.id) }}>Follow</button>}
                     </div>
                 </span>
                 <span>
