@@ -1,12 +1,12 @@
 import classes from './ProfileInfo.module.css';
 import Preloader from '../../commons/Preloader/Preloader'
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = (props) => {
 
     if (!props.profile) {
         return <Preloader />
     }
-
     return (
         <div>
             <div style={{ 'fontWeight': 'bold' }}>
@@ -16,6 +16,7 @@ const ProfileInfo = (props) => {
                 <div>
                     <img src={props.profile.photos.large} alt='USER_AVATAR' />
                 </div>
+                <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} />
                 <div>
                     Full name: <br />
                     {props.profile.fullName}

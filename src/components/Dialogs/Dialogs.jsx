@@ -1,4 +1,6 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
 import DialogItem from './DialogItem/DialogItem';
 import classes from './Dialogs.module.css';
 import Message from './Message/Message';
@@ -6,7 +8,6 @@ import Message from './Message/Message';
 
 const Dialogs = (props) => {
 
-    // DATA
 
     // DATA MAPPING
     let dialogsItems = props.dialogs
@@ -15,16 +16,13 @@ const Dialogs = (props) => {
     let messagesItems = props.messages
         .map((message, index) => <Message key={index} messageText={message.messageText} />)
 
-    // let newMessage = React.useRef(null);
 
-    let onSendMessage = () => {
-        props.sendMessage();
+
+    let sendNewMessage = (values) => {
+        props.sendMessage(values.newMessageText);
     }
 
-    let onMessageInputUpdate = (e) => {
-        let text = e.target.value;
-        props.onMessageInputUpdate(text);
-    }
+
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
@@ -34,13 +32,21 @@ const Dialogs = (props) => {
             <div className={classes.messages}>
                 <h4>MESSAGES</h4>
                 {messagesItems}
-                <div className={classes.postingBlock}>
-                    <textarea value={props.newMessageText} onChange={onMessageInputUpdate} />
-                    <button onClick={onSendMessage} className={classes.btn}>Send message</button>
-                </div>
             </div>
+            <ReduxSendMessageForm onSubmit={sendNewMessage} />
         </div>
     )
 }
+
+const SendMessageForm = (props) => {
+    return (
+        <form className={classes.postingBlock} onSubmit={props.handleSubmit}>
+            <Field component={"textarea"} name={"newMessageText"} placeholder="Enter your message" />
+            <button className={classes.btn}>Send message</button>
+        </form>
+    )
+}
+
+const ReduxSendMessageForm = reduxForm({ form: "dialogSendMessageForm" })(SendMessageForm)
 
 export default Dialogs;

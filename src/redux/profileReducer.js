@@ -1,8 +1,9 @@
 import { profileAPI } from "../api/api";
 
 const ADD_POST = 'ADD-POST';
-const POST_TEXT_UPDATE = 'POST-TEXT-UPDATE';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
+const SET_STATUS = 'SET-STATUS';
+
 
 let initialState = {
     posts: [
@@ -11,8 +12,8 @@ let initialState = {
         { id: 3, message: 'NEW STATUS', likesCount: 6 },
         { id: 4, message: 'LIFE IS BEAUTIFUL', likesCount: 28 },
         ],
-    newPostText: '',
-    profile: null
+    profile: null,
+    status: ""
 }
 
 const profileReducer = (state = initialState, action) => {
@@ -21,7 +22,7 @@ const profileReducer = (state = initialState, action) => {
         case ADD_POST: {
             let newPost = {
                 id:5,
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 4
             };
 
@@ -30,16 +31,17 @@ const profileReducer = (state = initialState, action) => {
                 posts: [...state.posts, newPost],
                 newPostText: ''};
         }
-        case POST_TEXT_UPDATE:
-            return {
-                ...state,
-                newPostText: action.newText
-            }
 
         case SET_USER_PROFILE:
             return {
                 ...state,
                 profile: action.profile
+            }
+
+        case SET_STATUS:
+            return {
+                ...state,
+                status: action.status
             }
 
         default:
@@ -50,16 +52,10 @@ const profileReducer = (state = initialState, action) => {
 
 //ACTION CREATORS
 
-export const addPostActionCreator = () => {
+export const addPostActionCreator = (newPostText) => {
     return{
-        type: ADD_POST
-    }
-}
-
-export const postTextUpdateActionCreator = (text) => {
-    return {
-        type: POST_TEXT_UPDATE,
-        newText: text
+        type: ADD_POST,
+        newPostText
     }
 }
 
@@ -67,6 +63,13 @@ export const setUserProfileActionCreator = (profile) => {
     return {
         type: SET_USER_PROFILE,
         profile
+    }
+}
+
+export const setUserStatusActionCreator = (status) => {
+    return {
+        type: SET_STATUS,
+        status
     }
 }
 
@@ -78,6 +81,28 @@ export const getUserProfileThunkCreator = (userId) => {
         profileAPI.getUserProfile(userId)
             .then(data => {
                 dispatch(setUserProfileActionCreator(data));
+            })
+    }
+}
+
+export const getUserStatusThunkCreator = (userId) => {
+
+    return (dispatch) => {
+        profileAPI.getUserStatus(userId)
+            .then(data => {
+                dispatch(setUserStatusActionCreator(data));
+            })
+    }
+}
+
+export const updateUserStatusThunkCreator = (status) => {
+
+    return (dispatch) => {
+        profileAPI.updateUserStatus(status)
+            .then(data => {
+                if(data.resultCode === 0) {
+                    dispatch(setUserStatusActionCreator(status));
+                }
             })
     }
 }
